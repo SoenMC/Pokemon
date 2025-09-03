@@ -15,7 +15,7 @@ Future<void> initLocator() async {
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 10),
           headers: {
-          'User-Agent': 'PokeTracker/1.0 (Flutter; camilo@example.com)',
+          'User-Agent': 'PokeTracker/1.0',
           'Accept': 'application/json',
         },
         validateStatus: (status) => status != null && status < 500,

@@ -3,11 +3,12 @@ import '../../domain/repositories/pokemon_repository.dart';
 import '../datasources/pokemon_remote_datasource.dart';
 import '../models/pokemon_model.dart';
 
-class PokemonRepositoryImpl implements PokemonRepository {
-  final PokemonRemoteDatasource remote;
-  PokemonRepositoryImpl(this.remote);
+class PokemonRepositoryImpl implements PokemonRepository {  //Bring how create Pokemon detail
+  final PokemonRemoteDatasource remote; //get data from API
+  PokemonRepositoryImpl(this.remote); //Data conected from PRI to PRS
 
   @override
+  //Pokemon List
   Future<List<Pokemon>> getList({int limit = 20, int offset = 0}) async {
     final data = await remote.fetchPokemonList(limit: limit, offset: offset);
     final results = (data['results'] as List).cast<Map<String, dynamic>>();
@@ -15,6 +16,7 @@ class PokemonRepositoryImpl implements PokemonRepository {
   }
 
   @override
+  //Pokemon Detail
   Future<Pokemon> getDetail(String idOrName) async {
     final data = await remote.fetchPokemonDetail(idOrName);
     return PokemonModel.fromDetail(data);

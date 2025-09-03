@@ -1,13 +1,15 @@
 import 'package:equatable/equatable.dart';
 
+//Create Pokemon and they are different
 class Pokemon extends Equatable {
   final int id;
   final String name;
   final String imageUrl;
-  final int? height; // decimetres
-  final int? weight; // hectograms
+  final int? height; 
+  final int? weight; 
   final List<String>? types;
 
+  //pokemon constructor
   const Pokemon({
     required this.id,
     required this.name,
@@ -18,5 +20,5 @@ class Pokemon extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, name, imageUrl, height, weight, types];
+  List<Object?> get props => [id, name, imageUrl, height, weight, types]; //Data that Equatable will compare
 }

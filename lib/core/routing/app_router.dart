@@ -6,15 +6,16 @@ import '../../presentation/pages/favorites_page.dart';
 import '../../presentation/pages/sightings_page.dart';
 import '../../presentation/pages/settings_page.dart';
 
-GoRouter buildRouter() => GoRouter(
+//define screens
+GoRouter buildRouter() => GoRouter(  //Wich screen open
   routes: [
-    GoRoute(path: '/', builder: (c, s) => const HomePage()),
-    GoRoute(path: '/detail/:id', builder: (c, s) {
+    GoRoute(path: '/', builder: (c, s) => const HomePage()), //path and widget to display
+    GoRoute(path: '/detail/:id', builder: (c, s) { //path and widget to display
       final id = int.tryParse(s.pathParameters['id'] ?? '') ?? 0;
       return DetailPage(id: id);
     }),
-    GoRoute(path: '/favorites', builder: (c, s) => const FavoritesPage()),
-    GoRoute(path: '/sightings', builder: (c, s) => const SightingsPage()),
-    GoRoute(path: '/settings', builder: (c, s) => const SettingsPage()),
+    GoRoute(path: '/favorites', builder: (c, s) => const FavoritesPage()), //path and widget to display
+    GoRoute(path: '/sightings', builder: (c, s) => const SightingsPage()), //path and widget to display
+    GoRoute(path: '/settings', builder: (c, s) => const SettingsPage()), //path and widget to display
   ],
 );

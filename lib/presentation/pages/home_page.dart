@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import '../blocs/pokemon_list/pokemon_list_bloc.dart';
 import '../blocs/pokemon_list/pokemon_list_event.dart';
 import '../blocs/pokemon_list/pokemon_list_state.dart';
