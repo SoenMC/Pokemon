@@ -11,54 +11,54 @@ import 'presentation/cubits/search_cubit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); //inicializar flutter
-  await Hive.initFlutter(); //inicializa base de datos local 
-  await initLocator(); //inicializa el service locator, para manejar dependencias y acceder al repo
-  runApp(const PokeTrackerApp());//arranca la app con el widget principal
+  WidgetsFlutterBinding.ensureInitialized(); //initialize flutter
+  await Hive.initFlutter(); //initializes local database
+  await initLocator(); //initializes the service locator, to manage dependencies and access the repo
+  runApp(const PokeTrackerApp());//start the app with the main widget
 }
 
-class PokeTrackerApp extends StatefulWidget { //maneitne el estado interno, cubits de tema y favoritos
+class PokeTrackerApp extends StatefulWidget { //maintain internal state, topic cubits and favorites
   const PokeTrackerApp({super.key});
   @override
   State<PokeTrackerApp> createState() => _PokeTrackerAppState();
 }
 
 class _PokeTrackerAppState extends State<PokeTrackerApp> {
-  final _themeCubit = ThemeCubit()..load(); //controla el tema y guarda el estado 
-  final _favoritesCubit = FavoritesCubit()..load(); //controla los pokemons favoritos y carga los guardados 
+  final _themeCubit = ThemeCubit()..load(); //controls the theme and saves the state
+  final _favoritesCubit = FavoritesCubit()..load(); //control favorite pokemons and load saved ones
 
   @override
-  void dispose() {  //cierra los cubits cuando el widget se destruye para liberar recursos
+  void dispose() {  //closes the qubits when the widget is destroyed to free up resources
     _themeCubit.close();
     _favoritesCubit.close();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {//construye el router de la app, para navegacionpor rutas
+  Widget build(BuildContext context) {//Build the app router for route navigation
     final router = buildRouter();
-    return MultiRepositoryProvider( //provee repositorios a toda la app
+    return MultiRepositoryProvider( //provides repositories to the entire app
       providers: [
         RepositoryProvider<PokemonRepository>(create: (_) => sl()),
       ],
-      child: MultiBlocProvider( //provee cubit y bloc a toda la app
+      child: MultiBlocProvider( //provides cubit and bloc to the entire app
         providers: [
           BlocProvider(create: (c) => PokemonListBloc(c.read<PokemonRepository>())..add(PokemonRequested())),
           BlocProvider.value(value: _themeCubit),
           BlocProvider.value(value: _favoritesCubit),
           BlocProvider(create: (c) => SearchCubit(c.read<PokemonRepository>())), // <- fix del espacio
         ],
-        child: BlocBuilder<ThemeCubit, bool>( // escucha el estado del tema y reconstruye toda la app
+        child: BlocBuilder<ThemeCubit, bool>( // listen to the status of the issue and rebuild the entire app
           builder: (_, isDark) {
             return MaterialApp.router(
               title: 'PokeTracker',
               debugShowCheckedModeBanner: false,
-              theme: ThemeData( // claro
+              theme: ThemeData( // liight
                 brightness: Brightness.light,
                 useMaterial3: true,
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
               ),
-              darkTheme: ThemeData( // oscuro
+              darkTheme: ThemeData( // dark
                 brightness: Brightness.dark,
                 useMaterial3: true,
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.red, brightness: Brightness.dark),

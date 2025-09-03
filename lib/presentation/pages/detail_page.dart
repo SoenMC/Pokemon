@@ -51,8 +51,8 @@ class DetailPage extends StatelessWidget {
                   ),
                 );
               case PokemonDetailLoaded(:final data):
-                final h = data.height; // decimetres
-                final w = data.weight; // hectograms
+                final h = data.height;
+                final w = data.weight;
                 final heightMeters = h != null ? (h / 10).toStringAsFixed(1) : '-';
                 final weightKg = w != null ? (w / 10).toStringAsFixed(1) : '-';
                 final types = (data.types ?? []).map((t) => t.toUpperCase()).toList();
@@ -62,8 +62,8 @@ class DetailPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,  // centra vertical
-                      crossAxisAlignment: CrossAxisAlignment.center, // centra horizontal
+                      mainAxisAlignment: MainAxisAlignment.center,  
+                      crossAxisAlignment: CrossAxisAlignment.center, 
                       children: [
                         Image.network(data.imageUrl, width: 180, height: 180),
                         const SizedBox(height: 12),
